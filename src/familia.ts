@@ -17,7 +17,6 @@ export class Familia {
         return this._ninos;
     }
 
-    // Método para verificar si la familia puede comprar las entradas
     puedeComprar(disponiblesAdultos: number, disponiblesNinos: number): boolean {
         return this._adultos <= disponiblesAdultos && this._ninos <= disponiblesNinos;
     }
