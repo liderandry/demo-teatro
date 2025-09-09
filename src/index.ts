@@ -1,13 +1,10 @@
-// Definición de tipos
 interface Familia {
     apellido: string;
     adultos: number;
     ninos: number;
 }
 
-// Clase Teatro
 class Teatro {
-    // Precios fijos
     public static readonly PRECIO_ADULTO = 10;
     public static readonly PRECIO_NINO = 5;
     
@@ -26,24 +23,19 @@ class Teatro {
         this.totalRecaudado = 0;
     }
 
-    // Configurar el inventario inicial
     public configurarInventario(adultos: number, ninos: number): void {
         this.entradas.adulto.cantidad = adultos;
         this.entradas.niño.cantidad = ninos;
     }
 
-    // Procesar la compra de una familia
     public procesarFamilia(familia: Familia): number {
-        // Verificar disponibilidad
         if (this.entradas.adulto.cantidad < familia.adultos || this.entradas.niño.cantidad < familia.ninos) {
             throw new Error(`No hay suficientes entradas disponibles para la familia ${familia.apellido}`);
         }
 
-        // Calcular total
         const total = (familia.adultos * this.entradas.adulto.precio) + 
                      (familia.ninos * this.entradas.niño.precio);
         
-        // Actualizar inventario
         this.entradas.adulto.cantidad -= familia.adultos;
         this.entradas.niño.cantidad -= familia.ninos;
         this.totalRecaudado += total;
@@ -51,12 +43,10 @@ class Teatro {
         return total;
     }
 
-    // Obtener el total recaudado
     public getTotalRecaudado(): number {
         return this.totalRecaudado;
     }
 
-    // Mostrar inventario actual
     public mostrarInventario(): void {
         console.log('\nInventario actual:');
         console.log(`- Entradas para adultos: ${this.entradas.adulto.cantidad} ($${this.entradas.adulto.precio} c/u)`);
@@ -64,14 +54,11 @@ class Teatro {
     }
 }
 
-// Función principal
 function main() {
     console.log('=== SISTEMA DE VENTA DE ENTRADAS DEL TEATRO ===\n');
     
-    // Crear instancia del teatro
     const teatro = new Teatro();
     
-    // Configurar inventario inicial
     const ENTRADAS_ADULTOS = 10;
     const ENTRADAS_NINOS = 20;
     teatro.configurarInventario(ENTRADAS_ADULTOS, ENTRADAS_NINOS);
@@ -80,7 +67,6 @@ function main() {
     console.log(`- Entradas para adultos: ${ENTRADAS_ADULTOS} ($${Teatro.PRECIO_ADULTO} c/u)`);
     console.log(`- Entradas para niños: ${ENTRADAS_NINOS} ($${Teatro.PRECIO_NINO} c/u)\n`);
     
-    // Definir las familias que comprarán entradas
     const familias: Familia[] = [
         { apellido: 'Gil', adultos: 2, ninos: 3 },
         { apellido: 'Ramos', adultos: 1, ninos: 5 },
@@ -90,7 +76,6 @@ function main() {
 
     console.log('--- Procesando ventas de entradas ---');
     
-    // Procesar cada familia
     for (const familia of familias) {
         try {
             const total = teatro.procesarFamilia(familia);
@@ -100,7 +85,6 @@ function main() {
         }
     }
 
-    // Mostrar resumen final
     console.log('\n--- Resumen final ---');
     console.log(`Total recaudado: $${teatro.getTotalRecaudado()}`);
     
@@ -108,5 +92,4 @@ function main() {
     teatro.mostrarInventario();
 }
 
-// Ejecutar la aplicación
 main();
